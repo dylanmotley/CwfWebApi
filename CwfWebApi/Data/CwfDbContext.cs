@@ -19,6 +19,8 @@ using CwfWebApi.Models;
     public DbSet<CwfWebApi.Models.Load> Loads { get; set; }
     public DbSet<CwfWebApi.Models.Request> Requests { get; set; }
 
+    public int MyProperty { get; set; }
+
 
 
 
