@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="3.1.15" />
-    <PackageReference Include="microsoft.entityframeworkcore.tools" Version="3.1.15">
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="3.1.18" />
+    <PackageReference Include="microsoft.entityframeworkcore.tools" Version="3.1.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CwfWebApi.Migrations
 {
     [DbContext(typeof(CwfDbContext))]
-    [Migration("20210714151328_Load Table")]
-    partial class LoadTable
+    [Migration("20210915231958_All tables")]
+    partial class Alltables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.15")
+                .HasAnnotation("ProductVersion", "3.1.18")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -82,6 +82,9 @@ namespace CwfWebApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("PaymentId")
                         .HasColumnType("int");
@@ -155,6 +158,39 @@ namespace CwfWebApi.Migrations
                     b.ToTable("Payments");
                 });
 
+            modelBuilder.Entity("CwfWebApi.Models.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsClosed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReasonForIncrease")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<decimal>("RequestAmount")
+                        .HasColumnType("decimal(11,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WhenNeeded")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Requests");
+                });
+
             modelBuilder.Entity("CwfWebApi.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -206,6 +242,15 @@ namespace CwfWebApi.Migrations
                     b.HasOne("CwfWebApi.Models.Invoice", "Invoice")
                         .WithMany()
                         .HasForeignKey("InvoiceId");
+                });
+
+            modelBuilder.Entity("CwfWebApi.Models.Request", b =>
+                {
+                    b.HasOne("CwfWebApi.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
